@@ -1,36 +1,58 @@
 const asyncHandler = require('express-async-handler')
 
+const Goal = require('../models/goalsModel')
 
 // @desc Get Goals
 // @route Get /api/goals
 // @access Private
 const getGoals = asyncHandler(async (req, res) => {
-    res.status(200).json({
-        message: 'Get goal'
-    });
+    
+    const goals = await Goal.find()
+    
+    res.status(200).json(goals);
 })
 
 // @desc set Goal
 // @route Post /api/goals
 // @access Private
 const setGoals = asyncHandler(async (req, res) => {
-    res.status(200).json({
-        message: 'Set goal'
-    });
+    if(!req.body.text) {
+        res.status(400)
+        throw new Error('Please add a text field') 
+    };
+
+    const goal = await Goal.create({
+        text: req.body.text,
+        email: req.body.email
+    })
+
+    res.status(200).json(goal);
 })
 
 // @desc Upadet Goal
 // @route PUT /api/goals/:id
 // @access Private
 const updateGoals = asyncHandler(async (req, res) => {
+    
     if(!req.body.text) {
         res.status(400)
         throw new Error('Please add a text field') 
     };
 
-    res.status(200).json({
-        message: `Update goal ${req.params.id}`
-    });
+    const goal = await Goal.findById(req.params.id)
+
+    if(goal) {
+        const updateGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+        res.status(200).json(updateGoal)
+    } else {
+
+        res.status(400)
+
+        throw new Error('Goal not found')
+    }
+
+   
 })
 
 // @desc Delete Goal
@@ -38,9 +60,25 @@ const updateGoals = asyncHandler(async (req, res) => {
 // @access Private
 const deleteGoals = asyncHandler(async (req, res) => {
 
-    res.status(200).json({
-        message: `Delete goal ${req.params.id}`
-    });
+    console.log("yes");
+    
+    const goal = await Goal.findById(req.params.id)
+
+    if(goal) {
+        
+        await goal.remove()
+
+
+        res.status(200).json({
+            id:req.params.id
+        })
+    } else {
+
+        res.status(400)
+
+        throw new Error('Goal not found')
+    }
+
 })
 
 module.exports = {
