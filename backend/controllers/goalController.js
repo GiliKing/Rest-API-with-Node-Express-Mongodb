@@ -2,12 +2,14 @@ const asyncHandler = require('express-async-handler')
 
 const Goal = require('../models/goalsModel')
 
+const User = require('../models/userModel')
+
 // @desc Get Goals
 // @route Get /api/goals
 // @access Private
 const getGoals = asyncHandler(async (req, res) => {
     
-    const goals = await Goal.find()
+    const goals = await Goal.find({ user: req.user.id})
     
     res.status(200).json(goals);
 })
@@ -23,7 +25,7 @@ const setGoals = asyncHandler(async (req, res) => {
 
     const goal = await Goal.create({
         text: req.body.text,
-        email: req.body.email
+        user: req.user.id
     })
 
     res.status(200).json(goal);
@@ -42,9 +44,27 @@ const updateGoals = asyncHandler(async (req, res) => {
     const goal = await Goal.findById(req.params.id)
 
     if(goal) {
-        const updateGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {new: true})
 
-        res.status(200).json(updateGoal)
+        const user = await User.findById(req.user.id)
+
+        // check for user
+        if(!user) {
+            res.status(401)
+
+            throw new Error('User not found')
+        } else {
+
+            // make sure the log in user matches the goal user
+            if(goal.user.toString() !== user.id) {
+                res.status(401)
+
+                throw new Error('User not authorized')
+            } else {
+                const updateGoal = await Goal.findByIdAndUpdate(req.params.id, req.body, {new: true})
+
+                res.status(200).json(updateGoal)
+            }
+        }
     } else {
 
         res.status(400)
@@ -65,13 +85,32 @@ const deleteGoals = asyncHandler(async (req, res) => {
     const goal = await Goal.findById(req.params.id)
 
     if(goal) {
+
+        const user = await User.findById(req.user.id)
+
+        // check for user
+        if(!user) {
+            res.status(401)
+
+            throw new Error('User not found')
+        } else {
+
+            // make sure the log in user matches the goal user
+            if(goal.user.toString() !== user.id) {
+                res.status(401)
+
+                throw new Error('User not authorized')
+            } else {
+                await goal.remove()
+
+
+                res.status(200).json({
+                    id:req.params.id
+                })
+            }
+        }
         
-        await goal.remove()
-
-
-        res.status(200).json({
-            id:req.params.id
-        })
+        
     } else {
 
         res.status(400)
