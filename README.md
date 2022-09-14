@@ -10,11 +10,12 @@
         Register : /api/users
         <p>method: POST</p>
     </li>
-
-    <li>
-        Login : /api/users/login
-        <p>method: POST</p>
-    </li>
+</ul>
+<ul>
+<li>
+    Login : /api/users/login
+    <p>method: POST</p>
+</li>
 </ul>
 
 
@@ -24,27 +25,38 @@
         getUserData : /api/users/me
         <p>method: POST</p>
     </li>
-
+</ul>
+<ul>
     <li>
         getAllGoals : /api/users/goals
         method: GET
     </li>
+</ul>
+<ul>
 
     <li>
         Create A Goal : /api/users/goals
         <p>method: POST</p>
     </li>
+</ul>
+
+<ul>
+
 
     <li>
         getSingleGoals : /api/users/goals/:id
         method: GET
     </li>
+</ul>
 
+<ul>
     <li>
         UpdateSingleGoals : /api/users/goals/:id
         <p>method: POST</p>
     </li>
+</ul>
 
+<ul>
     <li>
         deleteSingleGoals : /api/users/goals/:id
         <p>method: POST</p>
