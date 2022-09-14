@@ -26,12 +26,14 @@
         <p>method: POST</p>
     </li>
 </ul>
+
 <ul>
     <li>
         getAllGoals : /api/users/goals
-        method: GET
+        <p>method: GET</p>
     </li>
 </ul>
+
 <ul>
 
     <li>
@@ -41,11 +43,9 @@
 </ul>
 
 <ul>
-
-
     <li>
         getSingleGoals : /api/users/goals/:id
-        method: GET
+        <p>method: GET</p>
     </li>
 </ul>
 
