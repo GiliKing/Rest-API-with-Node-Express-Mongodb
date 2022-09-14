@@ -75,4 +75,10 @@ Mongodb was specifically use but ou can setup you databse eg MYSQL Or Sqlit by w
 
 <p>
 run the application with <i>npm run server</i>
+
+or you can test it live with postman using the uri below
+
+https://goals-listings.herokuapp.com/api/users
+
+https://goals-listings.herokuapp.com/api/goals
 </p>
