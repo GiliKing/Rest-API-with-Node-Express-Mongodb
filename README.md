@@ -5,24 +5,24 @@
 ## ENDPOINTS
 
 # Public Endpoints
-<ol>
+<ul>
     <li>
         Register : /api/users
-        method: POST
+        <p>method: POST</p>
     </li>
 
     <li>
         Login : /api/users/login
-        method: POST
+        <p>method: POST</p>
     </li>
-</ol>
+</ul>
 
 
 # Protected Endpoints
-<ol>
+<ul>
     <li>
         getUserData : /api/users/me
-        method: POST
+        <p>method: POST</p>
     </li>
 
     <li>
@@ -32,7 +32,7 @@
 
     <li>
         Create A Goal : /api/users/goals
-        method: POST
+        <p>method: POST</p>
     </li>
 
     <li>
@@ -42,14 +42,14 @@
 
     <li>
         UpdateSingleGoals : /api/users/goals/:id
-        method: POST
+        <p>method: POST</p>
     </li>
 
     <li>
         deleteSingleGoals : /api/users/goals/:id
-        method: POST
+        <p>method: POST</p>
     </li>
-</ol>
+</ul>
 
 # Usage
 
